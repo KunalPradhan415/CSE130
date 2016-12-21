@@ -1,0 +1,41 @@
+spring 2013 130 final
+
+let count f l  = 
+	let fold_fn a x = if ( f x ) = true then a+1 else a in
+	let base = 0 in
+	let temp = (List.fold_left fold_fn base l) in
+	temp 
+;;
+
+let stretch l =
+	let fold_fn a x = (a @ [x]) @ [x] in
+	let base = [] in 
+	List.fold_left fold_fn base l;;
+
+type 'a tree =
+| Empty
+| Node of 'a * 'a tree list;;
+
+let rec zip l1 l2 =
+match (l1,l2) with
+| ([],[]) -> []
+| (h1::t1, h2::t2) -> (h1,h2)::(zip t1 t2) ;;
+| _ -> raise Mismatch;;
+
+let rec tree_zip t1 t2 =
+match (t1,t2) with
+| (Empty, Empty) -> Empty
+| (Node(h1,t1) , Node(h2, t2) ) -> 
+	let myList = zip t1 t2 in
+	let mapfn (f1,f2) = tree_zip f1 f2 in
+	let res = List.map mapfn myList in
+	Node ( (h1,h2), res )
+	;;
+
+let rec tree_zip t1 t2 =
+    match (t1,t2) with
+    | (Empty, Empty) -> Empty
+    | (Node (n1i,n1l), Node (n2i,n2l)) -> 
+       let f (a,b) = tree_zip a b in 
+       Node ((n1i,n2i), List.map f (zip n1l n2l));;
+    | _ -> raise mismatch

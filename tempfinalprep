@@ -1,0 +1,45 @@
+Final
+
+Capes:
+fold, map
+Python with lsits, while, for , range, list comprehension
+Decorator
+Little bit of prolog
+
+
+Final
+insertion sort
+//output must be a sorted list, list input is sorted
+
+let rec insert l i = 
+match l with
+| [] -> [i]
+| h::t -> if h > i then i::h::t else h :: (insert t i )
+;; 
+
+let insertion_sort l =
+	let base = [] in
+	let fold_fn a x = insert a x in
+	List.fold_left fold_fn base l
+	;;
+
+
+def lookup(d,k):
+	return [y for (x,y) in d if x == k ]
+
+def update(d,k,v):
+	return [ (x, cond(x==k,v,y) ) for (x,y) in d]
+	//or
+	return [ (x,v if x==k else y) for (x,y) in d]
+
+def update(d,k,v):
+	res =[]
+	for (x,y) in d:
+		if (x==k): 
+			res.append((x,v))
+		else:
+			res = res + [x,y]
+def add(d,k,v):
+	return d + [k,v]
+
+//decorators
